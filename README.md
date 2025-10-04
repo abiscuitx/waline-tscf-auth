@@ -1,58 +1,76 @@
-# OAuth Center
+# waline-tscf-auth
 
-The easiest way to add user login to websites with [GitHub][GitHub], [Twitter][Twitter], [Facebook][Facebook], [Google][Google], [Weibo][Weibo], [QQ][QQ].
-## Deploy Your Own
+[waline-tscf](https://github.com/abiscuitx/waline-tscf)的OAuth认证后端，支持多种社交平台登录：GitHub
+、Twitter、Facebook、Google、微博 (Weibo)、QQ。
 
-Deploy your own Waline project with Vercel.
+> waline-tscf：一个基于 [Waline](https://github.com/walinejs/waline) 的评论系统，专为 [腾讯云函数 SCF](https://cloud.tencent.com/product/scf) 部署场景优化，增强后端性能能力，优化个人博客的前端样式。
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/walinejs/auth)
+## 快速部署
 
-## How To Use
-### GitHub
+部署到 Vercel ：
 
-`GITHUB_ID` and `GITHUB_SECRET` enviroment variables are required.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/abiscuitx/waline-tscf-auth)
 
-- Redirect URL: `<a href="<serverUrl>/github?redirect=&state=">Login with GitHub</a>`
-- Get user info: `GET <serverUrl>/github?code=`
+## 环境变量配置
 
-### Twitter
+运行前需要根据使用的社交平台配置相应的环境变量：
 
-`TWITTER_ID`, `TWITTER_SECRET`, `LEAN_ID` and `LEAN_KEY` environment variables are required. `LEAN_ID` and `LEAN_KEY` can got from <https://leancloud.app>.
+### GitHub 登录
+```
+GITHUB_ID=你的GitHub应用ID
+GITHUB_SECRET=你的GitHub应用密钥
+```
 
-- Redirect URL: `<a href="<serverUrl>/twitter?redirect=&state=">Login with Twitter</a>`
-- Get user info: `GET <serverUrl>/twitter?oauth_token=&oauth_verifier`
-### Facebook
+### Twitter 登录  
+```
+TWITTER_ID=你的Twitter应用ID
+TWITTER_SECRET=你的Twitter应用密钥
+LEAN_ID=LeanCloud应用ID
+LEAN_KEY=LeanCloud应用Key
+```
 
-`FACEBOOK_ID` and `FACEBOOK_SECRET` enviroment variables are required.
+### Facebook 登录
+```
+FACEBOOK_ID=你的Facebook应用ID
+FACEBOOK_SECRET=你的Facebook应用密钥
+```
 
-- Redirect URL: `<a href="<serverUrl>/facebook?redirect=&state=">Login with Facebook</a>`
-- Get user info: `GET <serverUrl>/facebook?code=`
+### Google 登录
+```
+GOOGLE_ID=你的Google应用ID
+GOOGLE_SECRET=你的Google应用密钥
+```
 
-### Google
+### 微博登录
+```
+WEIBO_ID=你的微博应用ID
+WEIBO_SECRET=你的微博应用密钥
+```
 
-`GOOGLE_ID` and `GOOGLE_SECRET` enviroment variables are required.
+### QQ 登录
+```
+QQ_ID=你的QQ应用ID
+QQ_SECRET=你的QQ应用密钥
+```
 
-- Redirect URL: `<a href="<serverUrl>/google?redirect=&state=">Login with Google</a>`
-- Get user info: `GET <serverUrl>/google?code=`
-
-### Weibo
-
-`WEIBO_ID` and `WEIBO_SECRET` enviroment variables are required.
-
-- Redirect URL: `<a href="<serverUrl>/weibo?redirect=&state=">Login with Weibo</a>`
-- Get user info: `GET <serverUrl>/weibo?code=`
-
-### QQ
-
-`QQ_ID` and `QQ_SECRET` environment variables are required.
-
-- Redirect URL: `<a href="<serverUrl>/qq?redirect=&state=">Login with QQ</a>`
-- Get user info: `GET <serverUrl>/qq?code=`
+## 如何调用
 
 
-  [GitHub]: https://github.com
-  [Twitter]: https://twitter.com
-  [Facebook]: https://facebook.com
-  [Google]: https://google.com
-  [Weibo]: https://weibo.com
-  [QQ]: https://qq.com
+### 登录重定向
+```
+GET /<平台名>?redirect=<回调地址>&state=<状态参数>
+```
+
+### 获取用户信息
+```
+GET /<平台名>?code=<授权码>
+```
+
+例如：
+- GitHub: `GET /github?code=authorization_code`
+- 微博: `GET /weibo?code=authorization_code`
+
+## 注意事项
+
+1. **Twitter 特殊要求**：Twitter 认证需要额外配置 LeanCloud 存储服务
+2. **回调地址**：需要在各社交平台的开发者控制台中正确配置回调地址
