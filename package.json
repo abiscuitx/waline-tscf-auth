@@ -1,9 +1,16 @@
 {
-  "name": "@waline/auth",
-  "private": true,
-  "description": "social account auth service provider",
-  "version": "1.0.0",
-  "author": "lizheming <i@imnerd.org>",
+  "name": "@waline-tscf/auth",
+  "version": "1.0.0-beta.1",
+  "description": "Waline-TSCF Auth —— Based on Waline, a waline social auth service.",
+  "main": "index.js",
+  "keywords": [
+    "waline",
+    "oauth",
+    "auth",
+    "Tencent",
+    "serverless"
+  ],
+  "author": "abiscuit",
   "scripts": {
     "start": "vercel dev"
   },
@@ -16,6 +23,9 @@
     "request-promise-native": "1.0.9",
     "uuid": "11.1.0"
   },
-  "repository": "https://github.com/walinejs/auth",
-  "license": "MIT"
+  "repository": "https://github.com/abiscuitx/waline-tscf-auth.git",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
